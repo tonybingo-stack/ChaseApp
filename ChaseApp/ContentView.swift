@@ -4,21 +4,52 @@
 //
 //  Created by user232392 on 7/7/24.
 //
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+    init() {
+        // Set the color of the Tab Bar background
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = UIColor.white
 
-#Preview {
-    ContentView()
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        
+        // Set the color of the Tab Bar items
+        UITabBar.appearance().tintColor = UIColor.blue
+        UITabBar.appearance().unselectedItemTintColor = UIColor.gray
+
+        // This is needed to set the appearance for iOS 15 and later
+        if #available(iOS 15.0, *) {
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
+    }
+
+    var body: some View {
+        TabView {
+            AccountView()
+                .tabItem {
+                    Image(systemName: "creditcard.fill")
+                    Text("Accounts")
+                }
+
+            PayView()
+                .tabItem {
+                    Image(systemName: "dollarsign.arrow.circlepath")
+                    Text("Pay & Transfer")
+                }
+
+            PlanTrackView()
+                .tabItem {
+                    Image(systemName: "pencil.and.list.clipboard")
+                    Text("Plan & Track")
+                }
+
+            InvestmentView()
+                .tabItem {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                    Text("Investments")
+                }
+        }
+    }
 }
